@@ -8,6 +8,7 @@ echo "[DEnv C# Default] Created 3 directories: src, obj, bin"
 touch src/Program.cs
 touch src/MyProject.csproj
 touch .gitignore
+touch README.md
 
 cat > src/Program.cs << EOF
 using System;
@@ -59,4 +60,12 @@ Thumbs.db
 
 EOF
 
-echo "[DEnv C# Default] Created 3 files: src/Program.cs, src/MyProject.csproj, .gitignore"
+PROJECT_NAME=$(basename "$PWD")
+
+cat > README.md << EOF
+# $PROJECT_NAME
+
+Project Setup from DEnv
+EOF
+
+echo "[DEnv C# Default] Created 4 files: src/Program.cs, src/MyProject.csproj, .gitignore, README.md"
