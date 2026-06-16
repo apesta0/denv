@@ -9,6 +9,7 @@ echo "[DEnv C++ Default] Created 3 directories: build, src, include"
 touch src/main.cpp
 touch run.sh
 touch .gitignore
+touch README.md
 
 cat > src/main.cpp << EOF
 #include <iostream>
@@ -63,4 +64,12 @@ Thumbs.db
 
 EOF
 
-echo "[DEnv C++ Default] Created 3 files: src/main.cpp, run.sh, .gitignore"
+PROJECT_NAME=$(basename "$PWD")
+
+cat > README.md << EOF
+# $PROJECT_NAME
+
+Project Setup from DEnv
+EOF
+
+echo "[DEnv C++ Default] Created 4 files: src/main.cpp, run.sh, .gitignore, README.md"
