@@ -2,7 +2,7 @@
 
 touch src/main.adb
 touch src/project.gpr
-touch run.sh
+touch .gitignore
 
 cat > src/main.adb << EOF
 with Ada.Text_IO;
@@ -19,4 +19,29 @@ project MyProject is
 end MyProject;
 EOF
 
-echo "[DEnv A# Default] Created 2 files: src/main.adb, src/project.gpr"
+cat > .gitignore << EOF
+
+# Build output
+
+bin/
+obj/
+
+# User-specific files
+
+*.user
+*.suo
+
+# Editor files
+
+.vscode/
+.idea/
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+
+EOF
+
+echo "[DEnv A# Default] Created 3 files: src/main.adb, src/project.gpr, .gitignore"
