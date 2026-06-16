@@ -25,4 +25,5 @@ jobs:
           gh release create "$TAG" \
             --title "$TAG" \
             --notes "Automated nightly build." \
+            --prerelease \
             --target main
