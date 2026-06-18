@@ -123,6 +123,23 @@ def command_list(args):
         print()
 
 
+def command_info(args):
+    templates = get_templates()
+
+    language = args.language
+
+    if language not in templates:
+        print(f"Unknown language: {language}")
+        return
+
+    print(f"Language: {language}")
+    print("\nVariants:")
+
+    for variant, path in templates[language].items():
+        print(f"  - {variant}")
+        print(f"    path: {path}")
+
+
 def command_version(args):
     print(f"DEnv version {VERSION}\nCopyright (C) 2026 Alex Pesta")
 
@@ -147,6 +164,14 @@ def main():
     list_parser = subparsers.add_parser("list", help="List available templates")
 
     list_parser.set_defaults(func=command_list)
+
+    info_parser = subparsers.add_parser(
+        "info", help="Show information about a template"
+    )
+
+    info_parser.add_argument("language", help="Programming language")
+
+    info_parser.set_defaults(func=command_info)
 
     version_parser = subparsers.add_parser("version", help="Show version")
 
