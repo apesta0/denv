@@ -21,7 +21,7 @@
 - Reworked the argument parsing
 
 
-### [s1.0.1] - Stable 1.0.1 (18/06/2026, Thursday)
+## [s1.0.1] - Stable 1.0.1 (18/06/2026, Thursday)
 
 ### Added
 
