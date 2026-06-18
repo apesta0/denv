@@ -6,6 +6,7 @@
 
 - C# Project support
 - A# Project support
+- Java Project support
 
 ### Fixed
 
