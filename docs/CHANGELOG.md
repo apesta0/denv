@@ -12,12 +12,13 @@
 
 ### Removed
 
-- Removed entry - *subprocess* in requirements.txt
+- Removed entry - *subprocess* and *sys* in requirements.txt
 
 ### Modified
 
-- Added entries - *shutil* and *pathlib* in requirements.txt
+- Added entries - *shutil*, *argparse*, *os* and *pathlib* in requirements.txt
 - Reworked the whole template system
+- Reworked the argument parsing
 
 
 ### [s1.0.1] - Stable 1.0.1 (18/06/2026, Thursday)
