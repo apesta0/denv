@@ -8,7 +8,7 @@
 
 ### Fixed
 
-- *None*
+- Fixed *PROJECT_NAME* interchange bug
 
 ### Removed
 
@@ -16,7 +16,8 @@
 
 ### Modified
 
-- *None*
+- Added entries - *shutil* and *pathlib* in requirements.txt
+- Reworked the whole template system
 
 
 ### [s1.0.1] - Stable 1.0.1 (18/06/2026, Thursday)
