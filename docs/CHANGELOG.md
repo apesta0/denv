@@ -4,7 +4,7 @@
 
 ### Added
 
-- *None*
+- Added an installer and uninstaller
 
 ### Fixed
 
