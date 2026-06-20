@@ -1,6 +1,6 @@
 # Changelog
 
-## [s1.1.1] - Stable 1.1.1 (///, /)
+## [s1.1.1] - Stable 1.1.1 (20/06/2026, Saturday)
 
 ### Added
 
@@ -9,11 +9,11 @@
 
 ### Fixed
 
--
+- *None*
 
 ### Removed
 
--
+- *None*
 
 ### Modified
 
