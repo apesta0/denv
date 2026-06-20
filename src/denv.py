@@ -3,9 +3,10 @@
 import argparse
 import os
 import shutil
+from datetime import date
 from pathlib import Path
 
-VERSION = "1.1.0"
+VERSION = "1.1.1"
 
 BASE_DIR = Path(__file__).resolve().parent
 TEMPLATES_DIR = BASE_DIR / "templates"
@@ -50,9 +51,8 @@ def generate_from_template(template_name):
     return True
 
 
-def replace_placeholders():
-    project_name = Path.cwd().resolve().name
 
+def replace_placeholders(variables):
     for file in Path.cwd().rglob("*"):
         if not file.is_file():
             continue
@@ -60,7 +60,8 @@ def replace_placeholders():
         try:
             content = file.read_text(encoding="utf-8")
 
-            content = content.replace("{PROJECT_NAME}", project_name)
+            for key, value in variables.items():
+                content = content.replace(f"{{{key}}}", str(value))
 
             file.write_text(content, encoding="utf-8")
 
@@ -68,7 +69,7 @@ def replace_placeholders():
             pass
 
 
-def create_project(language, variant, project_name):
+def create_project(language, variant, project_name, author):
     templates = get_templates()
 
     if language not in templates:
@@ -96,8 +97,17 @@ def create_project(language, variant, project_name):
 
         template = templates[language][variant]
 
+        variables = {
+            "PROJECT_NAME": project_name,
+            "AUTHOR": author,
+            "YEAR": date.today().year,
+            "DATE": date.today().isoformat(),
+            "LANGUAGE": language,
+            "DENV_VERSION": VERSION,
+        }
+
         if generate_from_template(template):
-            replace_placeholders()
+            replace_placeholders(variables)
 
     finally:
         os.chdir(old_cwd)
@@ -106,7 +116,7 @@ def create_project(language, variant, project_name):
 
 
 def command_create(args):
-    create_project(args.language, args.variant, args.project_name)
+    create_project(args.language, args.variant, args.project_name, args.author)
 
 
 def command_list(args):
@@ -160,6 +170,8 @@ def main():
     create_parser.add_argument("--variant", default="default", help="Template variant")
 
     create_parser.set_defaults(func=command_create)
+
+    create_parser.add_argument("--author", default="Unknown")
 
     list_parser = subparsers.add_parser("list", help="List available templates")
 
