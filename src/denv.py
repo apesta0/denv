@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import argparse
-import os
 import shutil
+import subprocess
 from datetime import date
 from pathlib import Path
 
@@ -51,7 +51,6 @@ def generate_from_template(template_name):
     return True
 
 
-
 def replace_placeholders(variables):
     for file in Path.cwd().rglob("*"):
         if not file.is_file():
@@ -69,7 +68,7 @@ def replace_placeholders(variables):
             pass
 
 
-def create_project(language, variant, project_name, author):
+def create_project(language, variant, project_name, author, git):
     templates = get_templates()
 
     if language not in templates:
@@ -108,15 +107,42 @@ def create_project(language, variant, project_name, author):
 
         if generate_from_template(template):
             replace_placeholders(variables)
+            if git:
+                initialize_git()
 
     finally:
+        import os
+
         os.chdir(old_cwd)
 
-    print(f"Created {language} project '{project_name}' ({variant})")
+    message = f"Created {language} project '{project_name}' ({variant})"
+
+    if git:
+        message += " with Git initialized"
+
+    print(message)
+
+
+def initialize_git():
+    subprocess.run(
+        ["git", "init"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+    )
+
+    subprocess.run(
+        ["git", "add", "."], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+    )
+
+    subprocess.run(
+        ["git", "commit", "-m", "Initial commit"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
 
 
 def command_create(args):
-    create_project(args.language, args.variant, args.project_name, args.author)
+    create_project(
+        args.language, args.variant, args.project_name, args.author, args.git
+    )
 
 
 def command_list(args):
@@ -172,6 +198,10 @@ def main():
     create_parser.set_defaults(func=command_create)
 
     create_parser.add_argument("--author", default="Unknown")
+
+    create_parser.add_argument(
+        "--git", action="store_true", help="Initialize a Git repository"
+    )
 
     list_parser = subparsers.add_parser("list", help="List available templates")
 
