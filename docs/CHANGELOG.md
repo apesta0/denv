@@ -4,7 +4,8 @@
 
 ### Added
 
--
+- Added an author argument to the create command
+- Added entry - *datetime* in requirements.txt
 
 ### Fixed
 
